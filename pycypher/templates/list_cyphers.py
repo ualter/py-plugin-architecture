@@ -11,6 +11,8 @@ HTML = f"""
     <body>
         %PLUGINS%
     </body>
+    <br/>
+    <button type="submit" value="Submit" onclick='javascript:alert("hello");'>Refresh</button>
 </html>
 """
 def render(input: Dict[str, Any]) -> str:

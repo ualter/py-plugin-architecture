@@ -27,5 +27,11 @@ CSS_STYLE = """<style>
                 table tbody tr:nth-child(odd) {
                     background-color: #ffffff;
                 }
+                button {
+                    color: #FFF;
+                    background-color: #900;
+                    font-weight: bold;
+                    font-size: 92%;
+                }
             </style>
         """
