@@ -2,16 +2,17 @@ import os
 import importlib
 from typing import Any, List, Dict
 from .cypher_protocol import Cypher
-from .plugin_factory import register as factory
+from .plugin_factory import register as factory_register
 
 PLUGINS_SUBFOLDER = "plugins"
-PLUGINS_PATH      = os.path.join(os.getcwd(), __package__,PLUGINS_SUBFOLDER)
+# PLUGINS_PATH      = os.path.join(os.getcwd(), __package__,PLUGINS_SUBFOLDER)
+PLUGINS_PATH      = os.path.join(os.getcwd(),PLUGINS_SUBFOLDER)
 
 class PluginInterface:
     """Represents a plugin interface"""
 
     @staticmethod
-    def register(factory) -> str:
+    def register(factory_register) -> str:
         """Register this plugin in our factory of plugins"""
 
 def import_module(name: str) -> PluginInterface:
@@ -23,7 +24,7 @@ def load_files() -> List[str]:
     list_files: List[str] = []
     for f in os.listdir(PLUGINS_PATH):
         if os.path.isfile(os.path.join(PLUGINS_PATH,f)):
-            file_module = f"{__package__}.{PLUGINS_SUBFOLDER}.{f.replace('.py','')}"
+            file_module = f"{PLUGINS_SUBFOLDER}.{f.replace('.py','')}"
             list_files.append(file_module)
     return list_files
 
@@ -33,7 +34,7 @@ def load_plugins() -> Dict[str,Any]:
     plugins_loaded["plugins"] = []
     for plugin_module in load_files():
         plugin      = import_module(plugin_module)
-        plugin_info = plugin.register(factory)
+        plugin_info = plugin.register(factory_register)
 
         plugins_loaded["plugins"].append({
             "key":plugin_info,

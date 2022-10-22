@@ -11,6 +11,5 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-  plugins_list = load_plugins()
   html_content = list_cyphers.render(plugins_list)
   return HTMLResponse(content=html_content, status_code=200)
