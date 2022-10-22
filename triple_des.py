@@ -1,8 +1,7 @@
 
-import logging
 from dataclasses import dataclass
 from typing import Protocol
-log = logging.getLogger(__name__)
+from typing import Dict, Any
 
 PLUGIN_CYPHER_KEY = "triple_des"
 
@@ -22,11 +21,11 @@ class TripleDES:
 
 def register(factory_register) -> str:
     factory_register(PLUGIN_CYPHER_KEY, TripleDES)
-    log.info(f"Registered plugin {PLUGIN_CYPHER_KEY}: {__name__}")
+    print(f"Registered plugin {PLUGIN_CYPHER_KEY}: {__name__}")
     return PLUGIN_CYPHER_KEY
 
-
-
-
-
-
+def default_init_parameters() -> Dict[str,Any]:
+    return {
+      "type": PLUGIN_CYPHER_KEY,
+      "random_key": 512,
+    }

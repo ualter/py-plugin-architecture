@@ -1,7 +1,9 @@
 
 import logging
+from typing import Dict, Any
 from dataclasses import dataclass
 from typing import Protocol
+
 log = logging.getLogger(__name__)
 
 PLUGIN_CYPHER_KEY = "rsa"
@@ -26,6 +28,12 @@ def register(factory_register) -> str:
     log.info(f"Registered plugin {PLUGIN_CYPHER_KEY}: {__name__}")
     return PLUGIN_CYPHER_KEY
 
+def default_init_parameters() -> Dict[str,Any]:
+    return {
+      "type": PLUGIN_CYPHER_KEY,
+      "keysize": 2048,
+      "version": 2
+    }
 
 
 

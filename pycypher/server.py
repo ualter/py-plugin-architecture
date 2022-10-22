@@ -3,6 +3,7 @@ from typing import Dict, Any
 from .plugin_manager import uninstall as plugin_uninstall
 from .plugin_manager import load_plugins as plugin_load
 from .plugin_manager import install_plugin as plugin_install
+from .plugin_manager import load_cyphers_from_plugins as load_cyphers
 from fastapi import FastAPI, File, UploadFile, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
@@ -52,5 +53,16 @@ def read_root(request: Request):
   app.plugin_list = plugin_load()
   redirect_url = request.url_for('read_root')
   return RedirectResponse(redirect_url, status_code=303)
+
+@app.get("/run-cyphers")
+def read_root(request: Request):
+  result_cyphers = load_cyphers(app.plugin_list)
+  print(result_cyphers)
+  return templates.TemplateResponse("run_cyphers.html", 
+        {
+          "request": request, 
+          "cyphers": result_cyphers
+        }
+  )
   
 

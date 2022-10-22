@@ -15,15 +15,19 @@
                     state = "install"
                 }
             }
-            function uninstall(plugin){
+            function uninstall(plugin) {
                 window.location.href="/uninstall/"+plugin;
             }
             function reloadPlugins() {
                 window.location.href="/reload/";
             }
+            function runPlugins() {
+                window.location.href="/run-cyphers/";
+            }
         </script>
     </head>
     <h2>Cyphers</h2>
+    <h3>Manage Plugins</h3>
     <body>
         <table>
             <thead><tr>
@@ -45,6 +49,7 @@
         <br>
         <button id="btnInstallPlugin" type="submit" value="Submit" onclick='javascript:showInstallPlugin();'>Install Plugin</button>
         <button id="btnReloadPlugin"  type="submit" value="Submit" onclick='javascript:reloadPlugins();'>Reload</button>
+        <button id="btnRunPlugins"  type="submit" value="Submit" onclick='javascript:runPlugins();'>Run Plugins</button>
         <br><br><br>
         <div id='formUp' style="display:none;">
             <form action="/uploadfiles/" enctype="multipart/form-data" method="post">

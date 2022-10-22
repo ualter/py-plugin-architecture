@@ -1,7 +1,7 @@
 
 import logging
 from dataclasses import dataclass
-from typing import Protocol
+from typing import Dict,Any
 log = logging.getLogger(__name__)
 
 PLUGIN_CYPHER_KEY = "aes"
@@ -24,6 +24,12 @@ def register(factory_register) -> str:
     factory_register(PLUGIN_CYPHER_KEY, AESCypher)
     log.info(f"Registered plugin {PLUGIN_CYPHER_KEY}: {__name__}")
     return PLUGIN_CYPHER_KEY
+
+def default_init_parameters() -> Dict[str,Any]:
+    return {
+      "type": PLUGIN_CYPHER_KEY,
+      "random_key": "1234567890"
+    }
 
 
 

@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Cyphers</title>
+        <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+        <script text="javascript">
+            function managePlugins() {
+                window.location.href="/";
+            }
+            function runPlugins() {
+                window.location.href="/run-cyphers";
+            }
+        </script>
+    </head>
+    <h2>Cyphers</h2>
+    <h3>Run Plugins</h3>
+    <body>
+        <table>
+            <thead><tr>
+                <td>ID</td>
+                <td>PLUGIN</td>
+                <td>ALGORITHM</td>
+                <td>DECRYPTED</td>
+                <td>ENCRYPTED</td>
+            </tr></thead>
+            {% for c in cyphers %}
+            {% set key = c['key'] %}
+            <tr>
+                <td>{{c['key']}}</td>
+                <td>{{c['name']}}</td>
+                <td>{{c['algorithm']}}</td>
+                <td>{{c['decrypted']}}</td>
+                <td>{{c['encrypted']}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <button id="btnManagePlugins"  type="submit" value="Submit" onclick='javascript:managePlugins();'>Manage Plugins</button>
+        <button id="btnRunPlugins"  type="submit" value="Submit" onclick='javascript:runPlugins();'>Run again...</button>
+        <br><br><br>
+        <div id='formUp' style="display:none;">
+            <form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+                <input name="file" type="file">
+                <input type="submit" value="Install">
+            </form>
+        </div>
+    </body>
+</html>

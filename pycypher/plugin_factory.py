@@ -1,5 +1,3 @@
-
-
 from typing import Any, Callable, Dict
 from .cypher_protocol import Cypher
 

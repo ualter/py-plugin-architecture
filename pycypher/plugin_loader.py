@@ -62,9 +62,10 @@ def load_plugins() -> Dict[str,Any]:
         plugin_info = plugin.register(factory_register)
 
         plugins_loaded["plugins"].append({
-            "key":plugin_info,
+            "key": plugin_info,
             "name": plugin.__name__,
-            "file": plugin.__file__
+            "file": plugin.__file__,
+            "plugin": plugin
         })
     log.info(plugins_loaded)
     return plugins_loaded
