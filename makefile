@@ -22,3 +22,8 @@ run: ## run FastAPI server for demo
 	clear ; \
 	uvicorn pycypher.server:app --reload ; \
 	printf " \n"; \
+
+# clean-cache: ## Clean __pychace__ folders, all of them
+# 	clear ; \
+# 	find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf ; \
+# 	printf " \n"; \

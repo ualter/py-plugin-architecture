@@ -8,6 +8,8 @@ packages = [{include = "pycypher"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+python-multipart = "^0.0.5"
+jinja2 = "^3.1.2"
 
 [tool.poetry.group.dev.dependencies]
 fastapi = "^0.85.1"

@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>Cyphers</title>
+        <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+        <script text="javascript">
+            state = "list"
+            function showInstallPlugin() {
+                if (state == "install") {
+                    document.getElementById('formUp').style.display = "none";
+                    document.getElementById('btnInstallPlugin').innerText = "Install Plugin";
+                    state = "list"
+                } else {
+                    document.getElementById('formUp').style.display = "";
+                    document.getElementById('btnInstallPlugin').innerText = "Cancel";
+                    state = "install"
+                }
+            }
+            function uninstall(plugin){
+                window.location.href="/uninstall/"+plugin;
+            }
+            function reloadPlugins() {
+                window.location.href="/reload/";
+            }
+        </script>
+    </head>
+    <h2>Cyphers</h2>
+    <body>
+        <table>
+            <thead><tr>
+                <td>ID</td>
+                <td>PLUGIN</td>
+                <td>ACTIONS</td>
+            </tr></thead>
+            {% for c in cyphers %}
+            {% set key = c['key'] %}
+            <tr>
+                <td>{{c['key']}}</td>
+                <td>{{c['name']}}</td>
+                <td>
+                    <button id="uninstall" type="button" value="Uninstall" onclick="javascript:uninstall('{{key}}');">Uninstall</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <button id="btnInstallPlugin" type="submit" value="Submit" onclick='javascript:showInstallPlugin();'>Install Plugin</button>
+        <button id="btnReloadPlugin"  type="submit" value="Submit" onclick='javascript:reloadPlugins();'>Reload</button>
+        <br><br><br>
+        <div id='formUp' style="display:none;">
+            <form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+                <input name="file" type="file">
+                <input type="submit" value="Install">
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,12 +1,11 @@
+import sys
 import os
 import importlib
+import importlib.util as ilu
 from typing import Any, List, Dict
-from .cypher_protocol import Cypher
+from pycypher.constants import EXTERNAL_PACKAGE_LOADING, MARK_UNINSTALLED, PLUGINS_PATH, PLUGINS_SUBFOLDER
 from .plugin_factory import register as factory_register
 
-PLUGINS_SUBFOLDER = "plugins"
-# PLUGINS_PATH      = os.path.join(os.getcwd(), __package__,PLUGINS_SUBFOLDER)
-PLUGINS_PATH      = os.path.join(os.getcwd(),PLUGINS_SUBFOLDER)
 
 class PluginInterface:
     """Represents a plugin interface"""
@@ -15,29 +14,55 @@ class PluginInterface:
     def register(factory_register) -> str:
         """Register this plugin in our factory of plugins"""
 
-def import_module(name: str) -> PluginInterface:
-    """Imports a module with the given name"""
-    return importlib.import_module(name)  
 
-def load_files() -> List[str]:
+def import_module_from_external_folder(plugin_file: Dict[str,Any]) -> PluginInterface:
+    """Load module from a full path, external folder (not presented as a child package)"""
+    spec = importlib.util.spec_from_file_location(
+        plugin_file["plugin"], 
+        os.path.join(plugin_file["path"],plugin_file["file"])
+    )
+    plugin = importlib.util.module_from_spec(spec)
+    sys.modules[f"{plugin_file['plugin']}"] = plugin
+    spec.loader.exec_module(plugin)
+    return plugin
+
+def import_module_child_package(plugin_file: Dict[str,Any]) -> PluginInterface:
+    """Load module that it is a child package, a subfolder of this one"""
+    return importlib.import_module(f"{plugin_file['sub']}.{plugin_file['plugin']}")
+
+def import_module(plugin_file: Dict[str,Any]) -> PluginInterface:
+    """Imports a module with the plugin file specification"""
+    if EXTERNAL_PACKAGE_LOADING:
+       return import_module_from_external_folder(plugin_file)
+    return import_module_child_package(plugin_file)
+
+def list_plugins() -> Dict[str, Any]:
     """Load all files presented in the plugins folder"""
     list_files: List[str] = []
     for f in os.listdir(PLUGINS_PATH):
         if os.path.isfile(os.path.join(PLUGINS_PATH,f)):
-            file_module = f"{PLUGINS_SUBFOLDER}.{f.replace('.py','')}"
-            list_files.append(file_module)
+            if not f".py{MARK_UNINSTALLED}" in f:
+                plugin_file = {
+                    "plugin": f.replace('.py',''),
+                    "file": f,
+                    "path": PLUGINS_PATH,
+                    "sub": PLUGINS_SUBFOLDER
+                } 
+                list_files.append(plugin_file)
     return list_files
 
 def load_plugins() -> Dict[str,Any]:
-    """Loads all plugins already installed"""
+    """Loads all plugins and install them, those not yet installed"""
     plugins_loaded:Dict[str,Any] = {}
     plugins_loaded["plugins"] = []
-    for plugin_module in load_files():
-        plugin      = import_module(plugin_module)
+    for plugin_file in list_plugins():
+        plugin      = import_module(plugin_file)      # if a module has already been imported, it's not loaded again, if needed, check reload modules
         plugin_info = plugin.register(factory_register)
 
         plugins_loaded["plugins"].append({
             "key":plugin_info,
-            "name": plugin.__name__
+            "name": plugin.__name__,
+            "file": plugin.__file__
         })
+    print(plugins_loaded)
     return plugins_loaded
