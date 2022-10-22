@@ -1,11 +1,13 @@
 import sys
 import os
+import logging
 import importlib
 import importlib.util as ilu
 from typing import Any, List, Dict
 from pycypher.constants import EXTERNAL_PACKAGE_LOADING, MARK_UNINSTALLED, PLUGINS_PATH, PLUGINS_SUBFOLDER
 from .plugin_factory import register as factory_register
 
+log = logging.getLogger(__name__)
 
 class PluginInterface:
     """Represents a plugin interface"""
@@ -64,5 +66,5 @@ def load_plugins() -> Dict[str,Any]:
             "name": plugin.__name__,
             "file": plugin.__file__
         })
-    print(plugins_loaded)
+    log.info(plugins_loaded)
     return plugins_loaded
