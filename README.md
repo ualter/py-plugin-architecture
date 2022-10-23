@@ -28,7 +28,6 @@ Launch the application, and try to add one of the plugins available at the folde
 
 The interface definition of a Cypher Plugin it's specificed by the class Cypher:
 
-
 ```python
 from typing import Protocol
 from abc import abstractmethod
@@ -46,6 +45,7 @@ class Cypher(Protocol):
         """Descrypt a value"""
 ```
 In order to create a new Plugin, we need to make sure that our new Cypher (a Python class) follow this interface above. Also, we need to provide one extra method, that's part of the Plugin Interface:
+
 ```python
 class PluginInterface:
     """Represents a plugin interface"""
@@ -58,10 +58,12 @@ This is necessary so the application receive some information about the Plugin t
 
 ---
 
-![PythonArchitecturePlugin](docs/img/plugin-part2.png)
 ## **Plugin - Implementation**
 
+<img align="left" src="docs/img/plugin-part2.png">
+
 Here an example of how should be created a new Cypher Plugin:
+
 ```python
 # Unique Id of this Plugin
 PLUGIN_CYPHER_KEY = "twofish"
