@@ -10,6 +10,8 @@ packages = [{include = "pycypher"}]
 python = "^3.8"
 python-multipart = "^0.0.5"
 jinja2 = "^3.1.2"
+rsa = "^4.9"
+pycryptodome = "^3.15.0"
 
 [tool.poetry.group.dev.dependencies]
 fastapi = "^0.85.1"

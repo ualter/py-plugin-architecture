@@ -57,7 +57,6 @@ def read_root(request: Request):
 @app.get("/run-cyphers")
 def read_root(request: Request):
   result_cyphers = load_cyphers(app.plugin_list)
-  print(result_cyphers)
   return templates.TemplateResponse("run_cyphers.html", 
         {
           "request": request, 

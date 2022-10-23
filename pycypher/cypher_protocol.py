@@ -9,7 +9,7 @@ class Cypher(Protocol):
     def algorithm(self) -> str:
         raise NotImplementedError
     
-    def encrypt(self, word: str) -> None:
+    def encrypt(self, word: str) -> str:
         """Encrypt a value"""
     
     def decrypt(self, word: str) -> str:
