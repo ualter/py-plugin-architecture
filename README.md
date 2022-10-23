@@ -94,7 +94,7 @@ def default_init_parameters() -> Dict[str,Any]:
       "block_size": 32,
     }
 ```
-Upload this file (*permissions to folder must be granted*), and if everything work well, this should be listed as another cypher option available to be run.
+Upload this file, and if everything works well, this should be listed as another cypher option available to be run.
 
-## **Info**
-This project in the status of "ongoing", for improvements, ideas, fixing, etc...
+## **Notice!**
+This project is the status of "ongoing", to improvements, ideas, fixing, etc...   in other words, working in progress.
