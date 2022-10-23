@@ -6,13 +6,15 @@ def test_load_plugins():
 
     aes_cypher = plugin_instantiate({
       "type": "aes",
-      "random_key": "1234567890"
+      "random_32_key": "Sixteen byte keySixteen byte key"
     })
 
     rsa_cypher = plugin_instantiate({
       "type": "rsa",
-      "keysize": 2048,
-      "version": 2
+      "keysize": 512,
+      "version": 2,
+      "public_key": None,
+      "private_key": None
     })
 
     # TODO: put some asserts here, later
