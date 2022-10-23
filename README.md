@@ -54,7 +54,7 @@ class PluginInterface:
     def register(factory_register) -> str:
         """Register this plugin in our factory of plugins"""
 ```
-This is necessary so the application receive some information about the Plugin that is going to register, as part of it.
+This is necessary so the application receive some information about the Plugin that is going to be register (as part of it).
 
 ---
 
