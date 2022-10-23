@@ -75,6 +75,7 @@ class TwoFish:
     
     def encrypt(self, word: str) -> str:
         # Do the TwoFish encryption here
+        encrypted = word + " Not implemented yet"
         return base64.b64encode(encrypted).decode()
     
     def decrypt(self, word: str) -> str:
