@@ -25,7 +25,6 @@ class TripleDES:
         cipher = DES3.new(key, DES3.MODE_CFB)
         msg = cipher.iv + cipher.encrypt(str.encode(word))
         return base64.b64encode(msg).decode()
-        # return f"{word} ENCRYPTED in Triple_DES"
     
     def decrypt(self, word: str) -> str:
         return "DECRYPTED"

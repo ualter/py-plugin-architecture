@@ -23,8 +23,8 @@ Launch the application, and try to add one of the plugins available at the folde
 
 ---
 
-![PythonArchitecturePlugin](docs/img/plugin.png)
-## **Plugin Interface** 
+![PythonArchitecturePlugin](docs/img/plugin-part1.png)
+## **Plugin - Interface** 
 
 The interface definition of a Cypher Plugin it's specificed by the class Cypher:
 ```python
@@ -54,7 +54,10 @@ class PluginInterface:
 ```
 This is necessary so the application receive some information about the Plugin that is going to register, as part of it.
 
-## **Plugin Example**
+---
+
+![PythonArchitecturePlugin](docs/img/plugin-part2.png)
+## **Plugin - Implementation**
 
 Here an example of how should be created a new Cypher Plugin:
 ```python
