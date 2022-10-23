@@ -22,11 +22,13 @@ Launch the application, and try to add one of the plugins available at the folde
 ![PythonArchitecturePlugin](docs/img/Py-Architecture-Plugin-Screens.gif)
 
 ---
-
-![PythonArchitecturePlugin](docs/img/plugin-part1.png)
 ## **Plugin - Interface** 
 
+<img align="left" src="docs/img/plugin-part1.png"> 
+
 The interface definition of a Cypher Plugin it's specificed by the class Cypher:
+
+
 ```python
 from typing import Protocol
 from abc import abstractmethod
